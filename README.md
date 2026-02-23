@@ -39,6 +39,11 @@ Autonomous **RFM (Recency, Frequency, Monetary)** tracking.
 *   **Detection**: Automatically flags "Fading VIPs"—high-value wholesales who haven't ordered in 60+ days but historically represent significant revenue.
 *   **Strategic Value**: Triggers proactive re-engagement alerts before the relationship churns.
 
+### 3. The Executive Intelligence Assistant (Ad-Hoc Inquiry)
+A precision-focused personal assistant for direct data interaction.
+*   **Interface**: Enables executives to query the database via **Gmail** using natural language (e.g., "What was our total revenue for the UK in 2011?").
+*   **Strategic Value**: Provides near-instant, data-backed answers and strategic recommendations for unplanned decision sessions.
+
 ---
 
 ## 🛠️ Technology Stack
