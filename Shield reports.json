@@ -1,0 +1,391 @@
+{
+  "name": "Shield reports",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Role: You are the CEO's Chief of Staff. You are reviewing operational risks.\n    \n    Data: {{ JSON.stringify($json.data, null, 2) }}\n\nObjective: Translate these product return patterns into a 30-second briefing for a busy CEO.\n\n    Task: \n    1. Start with a \"Headline Situation\": Briefly describe the most urgent leak in a way that sounds like a news headline (e.g., \"A Single Wholesaler is Responsible for £168k in Paper Craft Losses\").\n    2. Use the \"Story of the Pattern\":\n   - If UniqueCustomers is 1: Call this \"The Isolated Fracture.\" Explain that the business is vulnerable to one specific relationship/event.\n   - If UniqueCustomers is high (>5): Call this \"The Systemic Leak.\" Explain that this is a widespread fire affecting multiple customers, likely due to product quality.\n    3. Provide one \"Strategic Move\": What should the CEO do tomorrow morning? (e.g., \"Freeze this wholesaler's credit line\" or \"Stop the production line for [Product]\").\n    4.Tone: Confident, narrative, and non-technical. Avoid words like \"Concentration Risk\" or \"Dataset.\"\n    5. CRITICAL: Output your response as valid HTML and in ENGLISH only. Use <h3> for titles and <p> for descriptions. DO NOT use markdown (no # or **).",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        288,
+        32
+      ],
+      "id": "2289d35d-ca4d-4a7f-90a4-a3d3025007bd",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "html": "<div style=\"font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f8fafc; padding: 40px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.2); max-width: 650px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);\">\n    \n    <!-- Header -->\n    <div style=\"display: flex; align-items: center; margin-bottom: 25px;\">\n        <div style=\"background: rgba(56, 189, 248, 0.1); padding: 10px; border-radius: 12px; margin-right: 15px;\">\n            <span style=\"font-size: 24px;\">🛡️</span>\n        </div>\n        <h1 style=\"color: #38bdf8; font-size: 26px; font-weight: 800; margin: 0; letter-spacing: -0.5px;\">Revenue Shield Briefing</h1>\n    </div>\n\n    <!-- The Narrative (Dynamic Content) -->\n    <div style=\"background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); padding: 30px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); line-height: 1.7;\">\n        <div style=\"font-size: 18px; color: #cbd5e1;\">\n            {{ $json.output }}\n        </div>\n    </div>\n\n    <!-- Footer Area -->\n    <div style=\"margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center;\">\n        <span style=\"font-size: 11px; color: #64748b; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;\">Autonomous Decision Support</span>\n        <span style=\"font-size: 11px; color: #38bdf8; font-weight: 700;\">PROACTIVE PROTECTION</span>\n    </div>\n</div>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        32
+      ],
+      "id": "62ef83f8-e9ca-4b82-a024-86a8b8dfb3d1",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "include": "specifiedFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        96,
+        32
+      ],
+      "id": "1566a035-36ca-4afc-b863-ad42bcea6fb7",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-r1-0528:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        224,
+        176
+      ],
+      "id": "93bd14c0-4218-4ed1-b739-b8a1c92b2a59",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "68I5GkjSCHaVfm36",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "tentakeaways2023@gmail.com",
+        "subject": "Revenue Shield Briefing.",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Autonomous Sentinel (AI Audit)"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        752,
+        32
+      ],
+      "id": "3ecc7f1b-bc3f-42b1-addc-8b1f41d70eaa",
+      "name": "Send a message",
+      "webhookId": "59b629fd-18fa-4d8d-8064-79ec3b2352ee",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "nafhRCHWm1zhFPYA",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "include": "specifiedFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        112,
+        272
+      ],
+      "id": "826a2c2c-675f-4216-9da2-f56a3c14f46c",
+      "name": "Aggregate1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the CEO's \"Retention Strategist.\" I will provide you with a list of \"VIP Wholesaler Health\" data. These are customers who have spent a lot historically but have recently gone \"Silent.\"\n    \n    Data: {{ JSON.stringify($json.data, null, 2) }}\n    \n    Task: \n    1. Headline: Create an urgent narrative headline about losing VIP revenue (e.g., \"Retention Alert: £150k in VIP Revenue is Fading Away\").\n    2. The Story of \"The Silent Partner\": \n   - Identify the VIP with the highest LIFETIME_VALUE and the most DAYS_IN_SILENCE.\n   - Describe this as \"The Fading Giant.\" Explain that their silence is costing the business [LIFETIME_VALUE] in predicted annual revenue.\n    3. The Strategic Move: Suggest one re-engagement move (e.g., \"Offer a bespoke volume discount\" or \"Send a personalized relationship manager to their headquarters\").\n    4.Tone: High-stakes, relationship-focused, and narrative. No technical jargon like \"RFM\" or \"Julianday.\"\n    5. CRITICAL: Output ONLY the raw text for the story as valid HTML and in ENGLISH only. Use <h3> for titles and <p> for descriptions. DO NOT use markdown (no # or **) or ```html or ```.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        304,
+        272
+      ],
+      "id": "566f9ce8-b496-4b25-bb2b-2c0b84ef5337",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": "google/gemma-3-27b-it:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        224,
+        400
+      ],
+      "id": "c0973d6b-d5ec-41c5-a6a3-2f1092f6203d",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "WbZrR0OoBaIgUGJG",
+          "name": "OpenRouter account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:5000/query",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "sql",
+              "value": "SELECT \n    Description, \n    SUM(Quantity) as ReturnUnits, \n    ABS(SUM(Quantity * UnitPrice)) as RevenueLeakage, \n    COUNT(DISTINCT CustomerID) as UniqueCustomers \nFROM transactions \nWHERE Quantity < 0 \n  AND CustomerID IS NOT NULL \n  AND Description != 'Manual' \nGROUP BY Description \nORDER BY ReturnUnits ASC \nLIMIT 5;\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -64,
+        32
+      ],
+      "id": "cce93c66-cf1c-47f4-a88d-02d7a536c26a",
+      "name": "Revenue Shield Briefing SQL"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:5000/query",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "sql",
+              "value": "SELECT      CustomerID,     SUM(Quantity * UnitPrice) as LIFETIME_VALUE,     COUNT(DISTINCT InvoiceNo) as ORDER_FREQUENCY,     MAX(InvoiceDate) as LAST_ORDER,     ROUND(julianday('2011-12-09') - julianday(MAX(InvoiceDate))) as DAYS_IN_SILENCE FROM transactions WHERE CustomerID IS NOT NULL AND Quantity > 0 GROUP BY CustomerID HAVING LIFETIME_VALUE > 2000 AND DAYS_IN_SILENCE > 60 ORDER BY LIFETIME_VALUE DESC LIMIT 5;"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -64,
+        272
+      ],
+      "id": "433d720e-813e-471b-ae1d-78f9673d32c6",
+      "name": "VIP Churn Sentinel (RFM) SQL"
+    },
+    {
+      "parameters": {
+        "html": "<div style=\"font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #2e1065 0%, #0f172a 100%); color: #f8fafc; padding: 40px; border-radius: 20px; border: 1px solid rgba(168, 85, 247, 0.3); max-width: 650px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);\">\n    \n    <!-- VIP Header -->\n    <div style=\"display: flex; align-items: center; margin-bottom: 25px;\">\n        <div style=\"background: rgba(168, 85, 247, 0.15); padding: 10px; border-radius: 12px; margin-right: 15px; border: 1px solid rgba(251, 191, 36, 0.3);\">\n            <span style=\"font-size: 24px;\">👑</span>\n        </div>\n        <h1 style=\"color: #fbbf24; font-size: 26px; font-weight: 800; margin: 0; letter-spacing: -0.5px;\">VIP Relationship Alert</h1>\n    </div>\n\n    <!-- The Narrative (Relationship Status) -->\n    <div style=\"background: rgba(168, 85, 247, 0.05); backdrop-filter: blur(12px); padding: 30px; border-radius: 16px; border: 1px solid rgba(251, 191, 36, 0.1); line-height: 1.7;\">\n        <div style=\"font-size: 18px; color: #e2e8f0;\">\n            {{ $json.output }}\n        </div>\n    </div>\n\n    <!-- VIP Footer -->\n    <div style=\"margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(251, 191, 36, 0.2); display: flex; justify-content: space-between; align-items: center;\">\n        <span style=\"font-size: 11px; color: #a78bfa; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;\">Velocity Guard Active</span>\n        <span style=\"font-size: 11px; color: #fbbf24; font-weight: 700;\">RELATIONSHIP PROTECTION</span>\n    </div>\n</div>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        608,
+        272
+      ],
+      "id": "714a568d-e7a6-425f-896f-0e84f9d1cbf8",
+      "name": "HTML1"
+    },
+    {
+      "parameters": {
+        "sendTo": "tentakeaways2023@gmail.com",
+        "subject": "VIP Churn Sentinel (RFM)",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Autonomous Sentinel (AI Audit)"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        272
+      ],
+      "id": "244f9ae8-6c46-441a-969a-927e553e8567",
+      "name": "Send a message1",
+      "webhookId": "59b629fd-18fa-4d8d-8064-79ec3b2352ee",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "nafhRCHWm1zhFPYA",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -352,
+        144
+      ],
+      "id": "abf51e08-706f-41b0-97a5-f36773ee3c3d",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Revenue Shield Briefing SQL": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VIP Churn Sentinel (RFM) SQL": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML1": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Revenue Shield Briefing SQL",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "VIP Churn Sentinel (RFM) SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "1a2044b7-ee52-44e8-bf8d-f3d8aa76877c",
+  "meta": {
+    "instanceId": "45a49255a3916353fcce0cbc38e33bc08b2c1bcd82a3a509ec3c8588ead0c025"
+  },
+  "id": "SOUd9Svh6BG443Bs",
+  "tags": []
+}

@@ -1,0 +1,61 @@
+Link - https://archive.ics.uci.edu/dataset/352/online+retail
+
+Online Retail Dataset Details
+Donated on 11/5/2015
+This is a transactional data set which contains all the transactions occurring between 01/12/2010 and 09/12/2011 for a UK-based and registered non-store online retail.
+
+Dataset Characteristics
+Multivariate, Sequential, Time-Series
+
+Subject Area
+Business
+
+Associated Tasks
+Classification, Clustering
+
+Feature Type
+Integer, Real
+
+# Instances
+541909
+
+# Features
+8
+
+Dataset Information
+Additional Information
+
+This is a transactional data set which contains all the transactions occurring between 01/12/2010 and 09/12/2011 for a UK-based and registered non-store online retail.The company mainly sells unique all-occasion gifts. Many customers of the company are wholesalers.
+
+Has Missing Values?
+
+Yes (approx. 135,000 rows with NULL CustomerID)
+Introductory Paper
+Data mining for the online retail industry: A case study of RFM model-based customer segmentation using data mining
+By Daqing Chen, Sai Laing Sain, Kun Guo. 2012
+
+Published in Journal of Database Marketing and Customer Strategy Management, Vol. 19, No. 3
+
+Variables Table
+Variable Name	Role	Type	Description	Units	Missing Values
+InvoiceNo	ID	Categorical	a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'c', it indicates a cancellation		no
+StockCode	ID	Categorical	a 5-digit integral number uniquely assigned to each distinct product		no
+Description	Feature	Categorical	product name		no
+Quantity	Feature	Integer	the quantities of each product (item) per transaction		no
+InvoiceDate	Feature	Date	the day and time when each transaction was generated		no
+UnitPrice	Feature	Continuous	product price per unit	sterling	no
+CustomerID	Feature	Categorical	a 5-digit integral number uniquely assigned to each customer		no
+Country	Feature	Categorical	the name of the country where each customer resides		no
+Rows per page 
+0 to 8 of 8
+
+Additional Variable Information
+
+InvoiceNo: Invoice number. Nominal, a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'c', it indicates a cancellation. 
+StockCode: Product (item) code. Nominal, a 5-digit integral number uniquely assigned to each distinct product.
+Description: Product (item) name. Nominal.
+Quantity: The quantities of each product (item) per transaction. Numeric.	
+InvoiceDate: Invoice Date and time. Numeric, the day and time when each transaction was generated.
+UnitPrice: Unit price. Numeric, Product price per unit in sterling.
+CustomerID: Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer.
+Country: Country name. Nominal, the name of the country where each customer resides. 
